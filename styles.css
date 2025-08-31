@@ -336,6 +336,23 @@ nav ul li a:hover::after {
     margin-top: 40px;
 }
 
+/* Past Events Styling */
+.past-event {
+    opacity: 0.7;
+    filter: grayscale(20%);
+}
+
+.past-event .event-date {
+    background-color: var(--gray-color);
+}
+
+.past-event .btn.disabled {
+    background-color: var(--gray-color);
+    color: white;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
 /* Projects Section */
 .projects-grid {
     display: grid;
