@@ -747,3 +747,186 @@ footer {
         justify-content: center;
     }
 }
+
+/* ========================
+   Christmas Theme Styles
+   ======================== */
+
+/* Christmas Banner */
+.christmas-banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(135deg, #c41e3a 0%, #1a472a 50%, #c41e3a 100%);
+    background-size: 200% 200%;
+    animation: christmasGradient 5s ease infinite;
+    color: white;
+    padding: 12px 20px;
+    z-index: 1001;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.christmas-banner-hidden {
+    transform: translateY(-100%);
+    opacity: 0;
+    pointer-events: none;
+}
+
+@keyframes christmasGradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.christmas-banner-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.christmas-icon {
+    font-size: 1.5rem;
+    animation: christmasBounce 1s ease infinite;
+}
+
+.christmas-icon:last-of-type {
+    animation-delay: 0.5s;
+}
+
+@keyframes christmasBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+.christmas-message {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    letter-spacing: 0.5px;
+}
+
+.christmas-close {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 5px 10px;
+    opacity: 0.8;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.christmas-close:hover {
+    opacity: 1;
+    transform: translateY(-50%) scale(1.1);
+}
+
+/* Adjust header position when banner is visible */
+.christmas-banner-visible header {
+    top: 48px;
+}
+
+.christmas-banner-visible .hero {
+    padding-top: 128px;
+}
+
+/* Snow Container */
+.snow-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 999;
+    overflow: hidden;
+}
+
+/* Snowflake Styles */
+.snowflake {
+    position: absolute;
+    top: -20px;
+    color: white;
+    font-size: inherit;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+    animation: snowfall linear forwards;
+    pointer-events: none;
+    user-select: none;
+}
+
+@keyframes snowfall {
+    0% {
+        transform: translateY(-20px) translateX(0) rotate(0deg);
+        opacity: 1;
+    }
+    25% {
+        transform: translateY(25vh) translateX(calc(var(--drift) * 0.5)) rotate(90deg);
+    }
+    50% {
+        transform: translateY(50vh) translateX(var(--drift)) rotate(180deg);
+    }
+    75% {
+        transform: translateY(75vh) translateX(calc(var(--drift) * 0.5)) rotate(270deg);
+    }
+    100% {
+        transform: translateY(100vh) translateX(0) rotate(360deg);
+        opacity: 0.3;
+    }
+}
+
+/* Optional: Add subtle festive accent to primary elements during Christmas */
+.christmas-theme .primary-btn {
+    background: linear-gradient(135deg, #c41e3a, #a01830);
+}
+
+.christmas-theme .primary-btn:hover {
+    background: linear-gradient(135deg, #1a472a, #0d3320);
+}
+
+.christmas-theme .underline {
+    background: linear-gradient(90deg, #c41e3a, #1a472a);
+}
+
+/* Responsive Christmas Banner */
+@media (max-width: 768px) {
+    .christmas-banner {
+        padding: 10px 15px;
+    }
+    
+    .christmas-message {
+        font-size: 0.9rem;
+    }
+    
+    .christmas-icon {
+        font-size: 1.2rem;
+    }
+    
+    .christmas-banner-visible header {
+        top: 44px;
+    }
+    
+    .christmas-banner-visible .hero {
+        padding-top: 124px;
+    }
+}
+
+@media (max-width: 480px) {
+    .christmas-icon:first-of-type {
+        display: none;
+    }
+    
+    .christmas-message {
+        font-size: 0.85rem;
+    }
+}
