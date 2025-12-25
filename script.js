@@ -1,4 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Christmas theme check (December 20-31)
+    initChristmasTheme();
+    
     // Mobile menu toggle
     const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
     const nav = document.querySelector('nav');
@@ -177,3 +180,107 @@ document.addEventListener('DOMContentLoaded', function() {
     `;
     document.head.appendChild(style);
 });
+
+// Christmas theme functionality
+function initChristmasTheme() {
+    const today = new Date();
+    const month = today.getMonth(); // 0-indexed, so December is 11
+    const day = today.getDate();
+    
+    // Check if it's December 20-31
+    if (month === 11 && day >= 20 && day <= 31) {
+        activateChristmasTheme();
+    }
+}
+
+function activateChristmasTheme() {
+    // Add Christmas class to body for CSS styling
+    document.body.classList.add('christmas-theme');
+    
+    // Create and add the Christmas banner
+    createChristmasBanner();
+    
+    // Create falling snow effect
+    createSnowfall();
+}
+
+function createChristmasBanner() {
+    const banner = document.createElement('div');
+    banner.className = 'christmas-banner';
+    banner.innerHTML = `
+        <div class="christmas-banner-content">
+            <span class="christmas-icon">🎄</span>
+            <span class="christmas-message">Merry Christmas & Happy Holidays!</span>
+            <span class="christmas-icon">🎅</span>
+            <button class="christmas-close" aria-label="Close banner">&times;</button>
+        </div>
+    `;
+    
+    // Insert banner at the very top of the body
+    document.body.insertBefore(banner, document.body.firstChild);
+    
+    // Add close button functionality
+    const closeBtn = banner.querySelector('.christmas-close');
+    closeBtn.addEventListener('click', function() {
+        banner.classList.add('christmas-banner-hidden');
+        document.body.classList.remove('christmas-banner-visible');
+    });
+    
+    // Add class to body to adjust for banner height
+    document.body.classList.add('christmas-banner-visible');
+}
+
+function createSnowfall() {
+    const snowContainer = document.createElement('div');
+    snowContainer.className = 'snow-container';
+    snowContainer.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(snowContainer);
+    
+    // Create initial batch of snowflakes
+    const numberOfSnowflakes = 50;
+    for (let i = 0; i < numberOfSnowflakes; i++) {
+        createSnowflake(snowContainer, true);
+    }
+    
+    // Continuously create new snowflakes
+    setInterval(() => {
+        if (document.querySelectorAll('.snowflake').length < 100) {
+            createSnowflake(snowContainer, false);
+        }
+    }, 300);
+}
+
+function createSnowflake(container, initialLoad) {
+    const snowflake = document.createElement('div');
+    snowflake.className = 'snowflake';
+    
+    // Random properties for each snowflake
+    const size = Math.random() * 5 + 3; // 3-8px
+    const startPositionX = Math.random() * 100; // 0-100% from left
+    const animationDuration = Math.random() * 5 + 5; // 5-10 seconds
+    const animationDelay = initialLoad ? Math.random() * -10 : 0; // Stagger initial snowflakes
+    const opacity = Math.random() * 0.6 + 0.4; // 0.4-1 opacity
+    const drift = Math.random() * 20 - 10; // -10 to 10px horizontal drift
+    
+    // Apply styles
+    snowflake.style.cssText = `
+        width: ${size}px;
+        height: ${size}px;
+        left: ${startPositionX}%;
+        animation-duration: ${animationDuration}s;
+        animation-delay: ${animationDelay}s;
+        opacity: ${opacity};
+        --drift: ${drift}px;
+    `;
+    
+    // Randomly choose snowflake character
+    const snowflakeChars = ['❄', '❅', '❆', '•'];
+    snowflake.textContent = snowflakeChars[Math.floor(Math.random() * snowflakeChars.length)];
+    
+    container.appendChild(snowflake);
+    
+    // Remove snowflake after animation completes
+    snowflake.addEventListener('animationend', function() {
+        snowflake.remove();
+    });
+}
